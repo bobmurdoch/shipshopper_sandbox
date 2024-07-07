@@ -6,7 +6,7 @@ use App\ShipShopperLibrary\Exceptions\UpsAuthTokenException;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Http;
 
-class GetUpsOauthToken
+class GetUpsAccessToken
 {
     public static function getToken(): UpsTokenResponseDTO
     {

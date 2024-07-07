@@ -3,7 +3,7 @@
 namespace Tests\Feature\ShipShopperLibrary\Support;
 
 use App\ShipShopperLibrary\Exceptions\UpsAuthTokenException;
-use App\ShipShopperLibrary\Support\GetUpsOauthToken;
+use App\ShipShopperLibrary\Support\GetUpsAccessToken;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -11,9 +11,9 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversFunction;
 use Tests\TestCase;
 
-#[CoversClass(\App\ShipShopperLibrary\Support\GetUpsOauthToken::class)]
+#[CoversClass(\App\ShipShopperLibrary\Support\GetUpsAccessToken::class)]
 #[CoversFunction('getUpsOauthToken')]
-class GetUpsOauthTokenFeatureTest extends TestCase
+class GetUpsAccessTokenFeatureTest extends TestCase
 {
     public function setUp(): void
     {
@@ -30,7 +30,7 @@ class GetUpsOauthTokenFeatureTest extends TestCase
         ]);
         $this->expectException(UpsAuthTokenException::class);
         $this->expectExceptionMessage(__('shipshopper.ups.token.timeout'));
-        $actualToken = resolve(GetUpsOauthToken::class)->getToken();
+        $actualToken = resolve(GetUpsAccessToken::class)->getToken();
     }
     public function testGetTokenHttpError(): void
     {
@@ -44,7 +44,7 @@ class GetUpsOauthTokenFeatureTest extends TestCase
         $this->expectExceptionMessage(__('shipshopper.ups.token.http_error', [
             'http_status'=>500,
         ]));
-        $actualToken = resolve(GetUpsOauthToken::class)->getToken();
+        $actualToken = resolve(GetUpsAccessToken::class)->getToken();
     }
     public function testGetsTokenSuccessfully(): void
     {
@@ -63,7 +63,7 @@ class GetUpsOauthTokenFeatureTest extends TestCase
                 'status'=>'success',
             ])),
         ]);
-        $actualToken = resolve(GetUpsOauthToken::class)->getToken();
+        $actualToken = resolve(GetUpsAccessToken::class)->getToken();
         $this->assertSame('a_type', $actualToken->tokenType);
         $this->assertSame('my_id', $actualToken->clientId);
         $this->assertSame('secret', $actualToken->accessToken);
