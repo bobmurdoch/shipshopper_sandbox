@@ -29,5 +29,8 @@
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="UPS_SANDBOX_MODE" value="true"/>
+        <env name="UPS_CLIENT_ID" value=""/>
+        <env name="UPS_CLIENT_SECRET" value=""/>
     </php>
 </phpunit>
