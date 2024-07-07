@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Support;
+namespace Tests\Feature\ShipShopperLibrary\Support;
 
 use App\ShipShopperLibrary\Exceptions\UpsAuthTokenException;
 use App\ShipShopperLibrary\Support\GetUpsOauthToken;
