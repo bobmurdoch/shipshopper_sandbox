@@ -1,8 +1,8 @@
 <?php
-namespace App\Support;
+namespace App\ShipShopperLibrary\Support;
 
-use App\DTOs\UpsTokenResponseDTO;
-use App\Exceptions\UpsAuthTokenException;
+use App\ShipShopperLibrary\DTOs\UpsTokenResponseDTO;
+use App\ShipShopperLibrary\Exceptions\UpsAuthTokenException;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Http;
 

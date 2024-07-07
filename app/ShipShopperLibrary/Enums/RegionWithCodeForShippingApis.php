@@ -1,5 +1,5 @@
 <?php
-namespace App\Enums;
+namespace App\ShipShopperLibrary\Enums;
 
 interface RegionWithCodeForShippingApis
 {

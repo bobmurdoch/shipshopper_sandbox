@@ -1,5 +1,5 @@
 <?php
-namespace App\Exceptions;
+namespace App\ShipShopperLibrary\Exceptions;
 
 class UpsAuthTokenException extends \Exception
 {

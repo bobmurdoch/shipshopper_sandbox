@@ -1,5 +1,5 @@
 <?php
-namespace App\DTOs;
+namespace App\ShipShopperLibrary\DTOs;
 
 use Carbon\CarbonImmutable;
 

@@ -2,18 +2,16 @@
 
 namespace Tests\Feature\Support;
 
-use App\Exceptions\UpsAuthTokenException;
-use App\Support\GetUpsOauthToken;
+use App\ShipShopperLibrary\Exceptions\UpsAuthTokenException;
+use App\ShipShopperLibrary\Support\GetUpsOauthToken;
 use Carbon\CarbonImmutable;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversFunction;
 use Tests\TestCase;
 
-#[CoversClass(\App\Support\GetUpsOauthToken::class)]
+#[CoversClass(\App\ShipShopperLibrary\Support\GetUpsOauthToken::class)]
 #[CoversFunction('getUpsOauthToken')]
 class GetUpsOauthTokenFeatureTest extends TestCase
 {

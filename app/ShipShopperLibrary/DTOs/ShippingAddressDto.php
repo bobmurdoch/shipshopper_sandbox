@@ -1,9 +1,9 @@
 <?php
 
-namespace App\DTOs;
+namespace App\ShipShopperLibrary\DTOs;
 
-use App\Enums\AdministrativeAreaWithCodeForShippingApis;
-use App\Enums\RegionWithCodeForShippingApis;
+use App\ShipShopperLibrary\Enums\AdministrativeAreaWithCodeForShippingApis;
+use App\ShipShopperLibrary\Enums\RegionWithCodeForShippingApis;
 
 readonly class ShippingAddressDto
 {

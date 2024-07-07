@@ -1,5 +1,5 @@
 <?php
-namespace App\Enums;
+namespace App\ShipShopperLibrary\Enums;
 
 enum UsaStatesEnum: string implements AdministrativeAreaWithCodeForShippingApis
 {

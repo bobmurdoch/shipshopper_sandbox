@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums;
+namespace App\ShipShopperLibrary\Enums;
 
 enum RegionsEnum: string implements RegionWithCodeForShippingApis
 {
@@ -8,7 +8,7 @@ enum RegionsEnum: string implements RegionWithCodeForShippingApis
     public function getAdministrativeAreasEnum()
     {
         return match ($this) {
-            self::US => \App\Enums\UsaStatesEnum::class,
+            self::US => \App\ShipShopperLibrary\Enums\UsaStatesEnum::class,
         };
     }
     public function getCodeForShippingApi(ShippingCarrierEnum $shippingCarrier): string
