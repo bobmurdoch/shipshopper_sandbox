@@ -14,6 +14,7 @@ readonly class ShippingAddressDto
         public string $postalCode,
         public RegionWithCodeForShippingApis $region,
         public ?string $address_line_2 = null,
+        public ?string $urbanization = null,
     ) {
         //
     }
