@@ -34,8 +34,3 @@ like to support Canada soon after US support is complete.
 ☐ Fedex (Stamps.com) Address Validation
 
 ☐ Fedex (Stamps.com) Address Validation Tests
-
-
-## Notes
-I'm putting what the code will be for the library in \App\ShipShopper for now and adding tests for
-that code. For the client code I'm using to test the library, I'm not adding tests.
