@@ -24,5 +24,6 @@ class TestController extends Controller
         $addressValidationManager->loadAddress($exampleAddress);
         $addressValidationManager->checkUps($getUpsAccessToken->getToken());
         $addressValidationManager->validate();
+        dd($addressValidationManager->getUpsResponse());
     }
 }

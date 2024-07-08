@@ -26,24 +26,21 @@ class UpsAddressValidationRequestProvider implements AddressValidationRequestPro
     {
         return [
             'XAVRequest' => [
-                'Request'=>[
-                    'RequestOption'=>'3',
-                ],
                 'AddressKeyFormat' => [
-                    'ConsigneeName' => '',
-                    'BuildingName' => '',
+//                    'ConsigneeName' => '',
+//                    'BuildingName' => '',
                     'AddressLine' => [
                         $this->shippingAddress->address_line_1,
                         $this->shippingAddress->address_line_2,
                         // line 3 skipped
                     ],
-                    'Region' => '',
+                    //'Region' => '',
                     'PoliticalDivision2' => $this->shippingAddress->locality,
                     'PoliticalDivision1' => $this->shippingAddress->administrativeArea->getCodeForShippingApi(ShippingCarrierEnum::UPS),
                     'PostcodePrimaryLow' => $this->shippingAddress->postalCode,
                     // 4 digit after postal code
-                    'PostcodeExtendedLow' => '',
-                    // think this is only used for PR
+                    //'PostcodeExtendedLow' => '',
+                    // think this is only used for PR in US
                     'Urbanization' => $this->shippingAddress->urbanization,
                     'CountryCode' => $this->shippingAddress->region->getCodeForShippingApi(ShippingCarrierEnum::UPS),
                 ],

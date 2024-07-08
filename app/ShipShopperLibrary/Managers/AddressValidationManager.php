@@ -1,18 +1,19 @@
 <?php
 namespace App\ShipShopperLibrary\Managers;
 
+use App\ShipShopperLibrary\DTOs\AddressValidationResponseDTO;
 use App\ShipShopperLibrary\DTOs\ShippingAddressDto;
-use App\ShipShopperLibrary\DTOs\UpsTokenResponseDTO;
 use App\ShipShopperLibrary\Providers\Requests\AddressValidation\UpsAddressValidationRequestProvider;
+use App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
 
 class AddressValidationManager
 {
-    private bool $sandboxMode = false;
     private ShippingAddressDto $shippingAddress;
     private bool $checkUps = false;
     private ?string $upsToken = null;
+    private ?AddressValidationResponseDTO $upsResponse = null;
     public function loadAddress(
         ShippingAddressDto $shippingAddress,
     ): void {
@@ -28,9 +29,9 @@ class AddressValidationManager
         $upsProvider = null;
         if ($this->checkUps === true) {
             $upsProvider = resolve(UpsAddressValidationRequestProvider::class, [
-               'upsToken' => $this->upsToken,
-               'sandboxMode' => config('shipshopper.carriers.ups.sandbox'),
-               'shippingAddress' => $this->shippingAddress,
+                'upsToken' => $this->upsToken,
+                'sandboxMode' => config('shipshopper.carriers.ups.sandbox'),
+                'shippingAddress' => $this->shippingAddress,
             ]);
         }
         // build other providers
@@ -47,7 +48,6 @@ class AddressValidationManager
             ) {
                 $poolArray = [];
                 if ($useUps === true) {
-                    dd($upsProvider->getRequestData());
                     $poolArray[] = $pool
                         ->as(\App\ShipShopperLibrary\Enums\ShippingCarrierEnum::UPS->name)
                         ->withHeaders($upsProvider->getHeaders())
@@ -56,10 +56,16 @@ class AddressValidationManager
                 return $poolArray;
             });
             if ($useUps === true) {
-                $upsResponse = $responses[\App\ShipShopperLibrary\Enums\ShippingCarrierEnum::UPS->name];
-                dd($upsResponse->json());
+                $upsRawResponse = $responses[\App\ShipShopperLibrary\Enums\ShippingCarrierEnum::UPS->name];
+                $this->upsResponse = resolve(
+                    UpsAddressValidationResponseProvider::class
+                )::getResponseDTO($upsRawResponse->json());
             }
             // check fedex and usps responses.
         }
+    }
+    public function getUpsResponse(): ?AddressValidationResponseDTO
+    {
+        return $this->upsResponse;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\ShipShopperLibrary\Enums;
 
-enum AddressTypeEnum: string
+enum ShippingAddressClassificationTypeEnum: string
 {
     case RESIDENTIAL = 'Residential';
     case COMMERCIAL = 'Commercial';
