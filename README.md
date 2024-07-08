@@ -1,6 +1,8 @@
 ## What even is this?
 ShipShopper will be a package for PHP apps that will support
-address validation, quoting, and label purchases from various shipping carriers.
+address validation, quoting, and label purchases from various shipping carriers. The aim will
+be to return results that are in a single format where possible so that the differing details
+of each carriers' API implementations are not a concern for the user of the package.
 
 ## What is the status?
 The project is a work in progress. As of writing this readme, nothing is functional.
