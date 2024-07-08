@@ -6,8 +6,9 @@ address validation, quoting, and label purchases from various shipping carriers.
 The project is a work in progress. As of writing this readme, nothing is functional.
 I am currently building it in a Laravel app for easier  manual testing as I build the API.
 
-The code that will ultimately be moved into the package lives in [App/ShipShopperLibrary](app\ShipShopperLibrary) and my
-aim is to add tests for that code. "Client" code that is showing/me manually testing during
+The code that will ultimately be moved into the package lives in 
+[App/ShipShopperLibrary](https://github.com/bobmurdoch/shipshopper_sandbox/tree/main/app/ShipShopperLibrary) and my
+aim is to add tests for that code. "Client" code that is showing how to use the library/me manually testing during
 development will live elsewhere in this Laravel app and likely not have tests.
 
 My plan is to start with address validation, then move to  quoting and purchasing. One goal is to use Laravel's
@@ -21,11 +22,17 @@ like to support Canada soon after US support is complete.
 
 ## Tasks
 ☑️ UPS Address Validation
+
 ☐ UPS Address Validation Tests
+
 ☐ USPS (Stamps.com) Address Validation
+
 ☐ USPS (Stamps.com) Address Validation Tests
+
 ☐ Fedex (Stamps.com) Address Validation
+
 ☐ Fedex (Stamps.com) Address Validation Tests
+
 
 ## Notes
 I'm putting what the code will be for the library in \App\ShipShopper for now and adding tests for
