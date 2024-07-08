@@ -16,9 +16,9 @@ class TestController extends Controller
         // Use CA address since that's the only one that works in UPS testing env.
         $exampleAddress = new ShippingAddressDto(
             '1315 10th St',
-            '95814',
-            \App\ShipShopperLibrary\Enums\UsaStatesEnum::CA,
             'Sacramento',
+            \App\ShipShopperLibrary\Enums\UsaStatesEnum::CA,
+            '95814',
             \App\ShipShopperLibrary\Enums\RegionsEnum::US,
         );
         $addressValidationManager->loadAddress($exampleAddress);
