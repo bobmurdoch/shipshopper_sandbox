@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 class AddressValidationManager
 {
-    private ShippingAddressDto $shippingAddress;
+    private ?ShippingAddressDto $shippingAddress = null;
     private bool $checkUps = false;
     private ?string $upsToken = null;
     private ?AddressValidationResponseDTO $upsResponse = null;

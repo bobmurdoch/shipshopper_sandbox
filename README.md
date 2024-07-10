@@ -25,7 +25,7 @@ like to support Canada soon after US support is complete.
 ## Tasks
 ☑️ UPS Address Validation
 
-☐ UPS Address Validation Tests
+☑️ UPS Address Validation Tests
 
 ☐ USPS (Stamps.com) Address Validation
 
