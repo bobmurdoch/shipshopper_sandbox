@@ -12,6 +12,7 @@ use App\ShipShopperLibrary\Providers\Requests\AddressValidation\UpsAddressValida
 use App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversFunction;
@@ -67,7 +68,7 @@ class AddressValidationManagerFeatureTest extends TestCase
         $upsRequestProviderMock = \Mockery::mock(UpsAddressValidationRequestProvider::class);
         $upsRequestProviderMock->shouldReceive('getUrl')->andReturn('http://fake.ups.com');
         $upsRequestProviderMock->shouldReceive('getRequestData')->andReturn(['some raw data']);
-        $upsRequestProviderMock->shouldReceive('getHeaders')->andReturn(['headers']);
+        $upsRequestProviderMock->shouldReceive('getHeaders')->andReturn(['x-custom'=>'headers']);
         $this->app->bind(UpsAddressValidationRequestProvider::class, function () use ($upsRequestProviderMock) {
             return $upsRequestProviderMock;
         });
@@ -85,5 +86,11 @@ class AddressValidationManagerFeatureTest extends TestCase
         $this->assertSame(ShippingAddressClassificationTypeEnum::COMMERCIAL, $actualAddressValidationResponseDTO->addressType);
         $this->assertSame([], $actualAddressValidationResponseDTO->addressCandidates);
         $this->assertSame(true, $actualAddressValidationResponseDTO->validated);
+        Http::assertSent(function (Request $request) {
+            return $request->url() === 'http://fake.ups.com'
+                && $request->data() === ['some raw data']
+                && $request->method() === 'POST'
+                && $request->headers()['x-custom'] === ['headers'];
+        });
     }
 }
