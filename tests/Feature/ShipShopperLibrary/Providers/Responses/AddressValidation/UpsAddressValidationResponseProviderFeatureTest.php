@@ -36,8 +36,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                                 '123 My St',
                                 'Apt C',
                             ],
-                            'PoliticalDivision2'=>'CA',
-                            'PoliticalDivision1'=>'Beverly Hills',
+                            'PoliticalDivision1'=>'CA',
+                            'PoliticalDivision2'=>'Beverly Hills',
                             'PostcodePrimaryLow'=>'90210',
                             'CountryCode'=>'US',
                             'Urbanization'=>'',
@@ -56,8 +56,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
         $this->assertSame(ShippingAddressClassificationTypeEnum::COMMERCIAL, $actualDTO->addressCandidates[0]->addressTypeEnum);
         $this->assertSame('123 My St', $actualDTO->addressCandidates[0]->address_line_1);
         $this->assertSame('Apt C', $actualDTO->addressCandidates[0]->address_line_2);
-        $this->assertSame('CA', $actualDTO->addressCandidates[0]->locality);
-        $this->assertSame('Beverly Hills', $actualDTO->addressCandidates[0]->administrativeArea);
+        $this->assertSame('Beverly Hills', $actualDTO->addressCandidates[0]->locality);
+        $this->assertSame('CA', $actualDTO->addressCandidates[0]->administrativeArea);
         $this->assertSame('US', $actualDTO->addressCandidates[0]->region);
         $this->assertSame('', $actualDTO->addressCandidates[0]->urbanization);
         $this->assertSame('90210', $actualDTO->addressCandidates[0]->postalCode);
@@ -86,8 +86,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                                 '123 My St',
                                 '',
                             ],
-                            'PoliticalDivision2'=>'CA',
-                            'PoliticalDivision1'=>'Beverly Hills',
+                            'PoliticalDivision1'=>'CA',
+                            'PoliticalDivision2'=>'Beverly Hills',
                             'PostcodePrimaryLow'=>'90210',
                             'CountryCode'=>'US',
                             'Urbanization'=>'urban',
@@ -106,8 +106,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
         $this->assertSame(ShippingAddressClassificationTypeEnum::UNKNOWN, $actualDTO->addressCandidates[0]->addressTypeEnum);
         $this->assertSame('123 My St', $actualDTO->addressCandidates[0]->address_line_1);
         $this->assertSame('', $actualDTO->addressCandidates[0]->address_line_2);
-        $this->assertSame('CA', $actualDTO->addressCandidates[0]->locality);
-        $this->assertSame('Beverly Hills', $actualDTO->addressCandidates[0]->administrativeArea);
+        $this->assertSame('Beverly Hills', $actualDTO->addressCandidates[0]->locality);
+        $this->assertSame('CA', $actualDTO->addressCandidates[0]->administrativeArea);
         $this->assertSame('US', $actualDTO->addressCandidates[0]->region);
         $this->assertSame('urban', $actualDTO->addressCandidates[0]->urbanization);
         $this->assertSame('90210', $actualDTO->addressCandidates[0]->postalCode);
@@ -136,8 +136,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                                 '123 My St',
                                 '',
                             ],
-                            'PoliticalDivision2'=>'CA',
-                            'PoliticalDivision1'=>'Beverly Hills',
+                            'PoliticalDivision1'=>'CA',
+                            'PoliticalDivision2'=>'Beverly Hills',
                             'PostcodePrimaryLow'=>'90210',
                             'CountryCode'=>'US',
                             'Urbanization'=>'urban',
@@ -156,8 +156,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
         $this->assertSame(ShippingAddressClassificationTypeEnum::RESIDENTIAL, $actualDTO->addressCandidates[0]->addressTypeEnum);
         $this->assertSame('123 My St', $actualDTO->addressCandidates[0]->address_line_1);
         $this->assertSame('', $actualDTO->addressCandidates[0]->address_line_2);
-        $this->assertSame('CA', $actualDTO->addressCandidates[0]->locality);
-        $this->assertSame('Beverly Hills', $actualDTO->addressCandidates[0]->administrativeArea);
+        $this->assertSame('Beverly Hills', $actualDTO->addressCandidates[0]->locality);
+        $this->assertSame('CA', $actualDTO->addressCandidates[0]->administrativeArea);
         $this->assertSame('US', $actualDTO->addressCandidates[0]->region);
         $this->assertSame('urban', $actualDTO->addressCandidates[0]->urbanization);
         $this->assertSame('90210', $actualDTO->addressCandidates[0]->postalCode);
@@ -186,8 +186,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                                 '123 My St',
                                 'Apt C',
                             ],
-                            'PoliticalDivision2'=>'CA',
-                            'PoliticalDivision1'=>'Beverly Hills',
+                            'PoliticalDivision1'=>'CA',
+                            'PoliticalDivision2'=>'Beverly Hills',
                             'PostcodePrimaryLow'=>'90210',
                             'CountryCode'=>'US',
                             'Urbanization'=>'urban',

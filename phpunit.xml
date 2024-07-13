@@ -32,5 +32,8 @@
         <env name="UPS_SANDBOX_MODE" value="true"/>
         <env name="UPS_CLIENT_ID" value=""/>
         <env name="UPS_CLIENT_SECRET" value=""/>
+        <env name="FEDEX_SANDBOX_MODE" value="true"/>
+        <env name="FEDEX_CLIENT_ID" value=""/>
+        <env name="FEDEX_CLIENT_SECRET" value=""/>
     </php>
 </phpunit>
