@@ -6,7 +6,7 @@ use App\ShipShopperLibrary\Enums\ShippingAddressClassificationTypeEnum;
 readonly class AddressValidationResponseDTO
 {
     public function __construct(
-        public bool $validated,
+        public bool $matched,
         /**
          * @var AddressValidationCandidateDTO[] $addressCandidates
          */

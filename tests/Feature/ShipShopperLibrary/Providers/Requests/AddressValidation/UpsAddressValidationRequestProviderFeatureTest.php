@@ -33,7 +33,7 @@ class UpsAddressValidationRequestProviderFeatureTest extends TestCase
         $provider = new UpsAddressValidationRequestProvider(
             shippingAddress: $dto,
             sandboxMode: true,
-            upsToken: 'ups-token',
+            token: 'ups-token',
         );
         $this->assertSame('https://wwwcie.ups.com/api/addressvalidation/v2/3', $provider->getUrl());
         $this->assertSame([
@@ -68,7 +68,7 @@ class UpsAddressValidationRequestProviderFeatureTest extends TestCase
         $provider = new UpsAddressValidationRequestProvider(
             shippingAddress: $dto,
             sandboxMode: false,
-            upsToken: 'ups-token2',
+            token: 'ups-token2',
         );
         $this->assertSame('https://onlinetools.ups.com/api/addressvalidation/v2/3', $provider->getUrl());
         $this->assertSame([

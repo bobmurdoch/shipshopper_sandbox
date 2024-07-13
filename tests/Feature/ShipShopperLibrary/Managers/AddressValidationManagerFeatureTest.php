@@ -75,7 +75,7 @@ class AddressValidationManagerFeatureTest extends TestCase
         $upsResponseProviderMock = \Mockery::mock(UpsAddressValidationResponseProvider::class);
         $upsValidationResponseMock = new AddressValidationResponseDTO(true, [], ShippingAddressClassificationTypeEnum::COMMERCIAL);
         $upsResponseProviderMock->shouldReceive('getResponseDTO')
-            ->withArgs([['some shaped request data']])
+            ->withArgs([['some shaped request data'], 200])
             ->andReturn($upsValidationResponseMock);
         $this->instance(UpsAddressValidationResponseProvider::class, $upsResponseProviderMock);
         $manager = new AddressValidationManager();
@@ -85,7 +85,7 @@ class AddressValidationManagerFeatureTest extends TestCase
         $actualAddressValidationResponseDTO = $manager->getUpsResponse();
         $this->assertSame(ShippingAddressClassificationTypeEnum::COMMERCIAL, $actualAddressValidationResponseDTO->addressType);
         $this->assertSame([], $actualAddressValidationResponseDTO->addressCandidates);
-        $this->assertSame(true, $actualAddressValidationResponseDTO->validated);
+        $this->assertSame(true, $actualAddressValidationResponseDTO->matched);
         Http::assertSent(function (Request $request) {
             return $request->url() === 'http://fake.ups.com'
                 && $request->data() === ['some raw data']

@@ -9,7 +9,7 @@ class UpsAddressValidationRequestProvider implements AddressValidationRequestPro
     public function __construct(
         private readonly ShippingAddressDto $shippingAddress,
         private readonly bool $sandboxMode,
-        private readonly string $upsToken,
+        private readonly string $token,
     ) {
         //
     }
@@ -51,7 +51,7 @@ class UpsAddressValidationRequestProvider implements AddressValidationRequestPro
     public function getHeaders(): array
     {
         return [
-            'Authorization'=>'Bearer '.$this->upsToken,
+            'Authorization'=>'Bearer '.$this->token,
             'Content-Type'=>'application/json',
         ];
     }

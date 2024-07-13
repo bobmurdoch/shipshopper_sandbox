@@ -5,6 +5,7 @@ use App\ShipShopperLibrary\DTOs\AddressValidationResponseDTO;
 use App\ShipShopperLibrary\DTOs\ShippingAddressDto;
 use App\ShipShopperLibrary\Providers\Requests\AddressValidation\UpsAddressValidationRequestProvider;
 use App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
 
@@ -29,7 +30,7 @@ class AddressValidationManager
         $upsProvider = null;
         if ($this->checkUps === true) {
             $upsProvider = resolve(UpsAddressValidationRequestProvider::class, [
-                'upsToken' => $this->upsToken,
+                'token' => $this->upsToken,
                 'sandboxMode' => config('shipshopper.carriers.ups.sandbox'),
                 'shippingAddress' => $this->shippingAddress,
             ]);
@@ -61,7 +62,13 @@ class AddressValidationManager
                     UpsAddressValidationResponseProvider::class
                 )::getResponseDTO($upsRawResponse->json());
             }
-            // check fedex and usps responses.
+            return $poolArray;
+        });
+        if ($useUps === true) {
+            $upsRawResponse = $responses[\App\ShipShopperLibrary\Enums\ShippingCarrierEnum::UPS->name];
+            $this->upsResponse = resolve(
+                UpsAddressValidationResponseProvider::class
+            )::getResponseDTO($upsRawResponse->json(), $upsRawResponse->status());
         }
     }
     public function getUpsResponse(): ?AddressValidationResponseDTO

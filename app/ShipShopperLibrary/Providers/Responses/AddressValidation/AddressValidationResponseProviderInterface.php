@@ -5,5 +5,5 @@ use App\ShipShopperLibrary\DTOs\AddressValidationResponseDTO;
 
 interface AddressValidationResponseProviderInterface
 {
-    public static function getResponseDTO(array $responseData): AddressValidationResponseDTO;
+    public static function getResponseDTO(array $responseData, int $httpStatus): AddressValidationResponseDTO;
 }

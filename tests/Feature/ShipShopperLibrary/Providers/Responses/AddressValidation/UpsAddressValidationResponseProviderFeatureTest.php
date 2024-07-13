@@ -47,8 +47,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                 ],
             ],
         ];
-        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData);
-        $this->assertSame(true, $actualDTO->validated);
+        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData, 200);
+        $this->assertSame(true, $actualDTO->matched);
         $this->assertSame(null, $actualDTO->errorSummary);
         $this->assertSame(false, $actualDTO->hasErrors());
         $this->assertSame(ShippingAddressClassificationTypeEnum::COMMERCIAL, $actualDTO->addressType);
@@ -97,8 +97,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                 ],
             ],
         ];
-        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData);
-        $this->assertSame(true, $actualDTO->validated);
+        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData, 200);
+        $this->assertSame(true, $actualDTO->matched);
         $this->assertSame(null, $actualDTO->errorSummary);
         $this->assertSame(false, $actualDTO->hasErrors());
         $this->assertSame(ShippingAddressClassificationTypeEnum::RESIDENTIAL, $actualDTO->addressType);
@@ -147,8 +147,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                 ],
             ],
         ];
-        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData);
-        $this->assertSame(true, $actualDTO->validated);
+        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData, 200);
+        $this->assertSame(true, $actualDTO->matched);
         $this->assertSame(null, $actualDTO->errorSummary);
         $this->assertSame(false, $actualDTO->hasErrors());
         $this->assertSame(ShippingAddressClassificationTypeEnum::UNKNOWN, $actualDTO->addressType);
@@ -197,8 +197,8 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                 ],
             ],
         ];
-        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData);
-        $this->assertSame(false, $actualDTO->validated);
+        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData, 500);
+        $this->assertSame(false, $actualDTO->matched);
         $this->assertSame(json_encode('Some error details'), $actualDTO->errorSummary);
         $this->assertSame(true, $actualDTO->hasErrors());
         $this->assertSame(ShippingAddressClassificationTypeEnum::UNKNOWN, $actualDTO->addressType);

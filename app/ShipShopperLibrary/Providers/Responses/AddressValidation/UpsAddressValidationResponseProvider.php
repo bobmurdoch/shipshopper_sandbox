@@ -8,12 +8,12 @@ use Illuminate\Support\Arr;
 
 class UpsAddressValidationResponseProvider implements AddressValidationResponseProviderInterface
 {
-    public static function getResponseDTO(array $responseData): AddressValidationResponseDTO
+    public static function getResponseDTO(array $responseData, int $httpStatus): AddressValidationResponseDTO
     {
         $responseStatus = Arr::get($responseData, 'XAVResponse.Response.ResponseStatus.Code');
         if ($responseStatus !== '1') {
             return new AddressValidationResponseDTO(
-                validated: false,
+                matched: false,
                 addressCandidates: [],
                 addressType: ShippingAddressClassificationTypeEnum::UNKNOWN,
                 // @TODO parse through this for more readable return string
@@ -48,7 +48,7 @@ class UpsAddressValidationResponseProvider implements AddressValidationResponseP
 
         return new AddressValidationResponseDTO(
             // is present as key with empty string for value
-            validated: Arr::get($responseData, 'XAVResponse.ValidAddressIndicator', null) === '',
+            matched: Arr::get($responseData, 'XAVResponse.ValidAddressIndicator', null) === '',
             addressCandidates: $addressCandidates,
             addressType: $addressTypeEnum,
         );
