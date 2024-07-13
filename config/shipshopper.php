@@ -17,9 +17,11 @@ return [
         ],
       ],
       'fedex'=>[
-        'enabled'=>false,
+        'enabled'=>true,
+        'sandbox'=>env('FEDEX_SANDBOX_MODE', true),
         'api_credentials'=>[
-          //
+          'client_id'=>env('FEDEX_CLIENT_ID'),
+          'client_secret'=>env('FEDEX_CLIENT_SECRET'),
         ],
       ],
     ],

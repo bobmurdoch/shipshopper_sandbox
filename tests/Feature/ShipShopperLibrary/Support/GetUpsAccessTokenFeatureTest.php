@@ -12,7 +12,7 @@ use PHPUnit\Framework\Attributes\CoversFunction;
 use Tests\TestCase;
 
 #[CoversClass(\App\ShipShopperLibrary\Support\GetUpsAccessToken::class)]
-#[CoversFunction('getUpsOauthToken')]
+#[CoversFunction('getToken')]
 class GetUpsAccessTokenFeatureTest extends TestCase
 {
     public function setUp(): void
