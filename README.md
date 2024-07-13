@@ -31,6 +31,11 @@ like to support Canada soon after US support is complete.
 
 ☐ USPS (Stamps.com) Address Validation Tests
 
-☐ Fedex (Stamps.com) Address Validation
+☑️ Fedex (Stamps.com) Address Validation
 
-☐ Fedex (Stamps.com) Address Validation Tests
+☑️ Fedex (Stamps.com) Address Validation Tests
+
+## Notes
+When using the Fedex API, please see their documentation about the limitations
+of their testing API endpoints. It may be simpler to just use production credentials
+while working with this code.

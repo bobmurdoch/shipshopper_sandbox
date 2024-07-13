@@ -25,7 +25,11 @@ class TestController extends Controller
         );
         $addressValidationManager->loadAddress($exampleAddress);
         $addressValidationManager->checkUps($getUpsAccessToken->getToken());
+        $addressValidationManager->checkFedex($getFedexAccessToken->getToken());
         $addressValidationManager->validate();
-        dd($addressValidationManager->getUpsResponse());
+        dd(
+            $addressValidationManager->getUpsResponse(),
+            $addressValidationManager->getFedexResponse(),
+        );
     }
 }
