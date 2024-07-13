@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ShipShopperLibrary\DTOs\ShippingAddressDto;
 use App\ShipShopperLibrary\Managers\AddressValidationManager;
-use App\ShipShopperLibrary\Support\GetFedexAccessToken;
+use App\Support\GetFedexAccessToken;
 use App\Support\GetUpsAccessToken;
 use Illuminate\Http\Request;
 
