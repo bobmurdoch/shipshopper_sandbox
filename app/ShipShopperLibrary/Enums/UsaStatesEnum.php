@@ -3,6 +3,7 @@ namespace App\ShipShopperLibrary\Enums;
 
 enum UsaStatesEnum: string implements AdministrativeAreaWithCodeForShippingApis
 {
+    use AdministrativeAreaValuesByNamesArrayTrait;
     case AL = 'Alabama';
     case AK = 'Alaska';
     case AS = 'American Samoa';

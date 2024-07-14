@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/address-validate-example', [\App\Http\Controllers\TestController::class, 'validateAddress']);
+Route::get('/demo', [\App\Http\Controllers\DemoController::class, 'create']);

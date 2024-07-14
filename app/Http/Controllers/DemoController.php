@@ -8,8 +8,14 @@ use App\Support\GetFedexAccessToken;
 use App\Support\GetUpsAccessToken;
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class DemoController extends Controller
 {
+    public function create()
+    {
+        return view('demo', [
+            'states'=>\App\ShipShopperLibrary\Enums\UsaStatesEnum::getValuesByNamesArray(),
+        ]);
+    }
     public function validateAddress(
         GetUpsAccessToken $getUpsAccessToken,
         GetFedexAccessToken $getFedexAccessToken,
