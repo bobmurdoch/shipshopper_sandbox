@@ -10,6 +10,14 @@ class UpsAddressValidationResponseProvider implements AddressValidationResponseP
 {
     public static function getResponseDTO(array $responseData, int $httpStatus): AddressValidationResponseDTO
     {
+        if ($httpStatus !== 200) {
+            return new AddressValidationResponseDTO(
+                matched: false,
+                addressCandidates: [],
+                addressType: ShippingAddressClassificationTypeEnum::UNKNOWN,
+                errorSummary: json_encode(Arr::get($responseData, 'response.errors', [])),
+            );
+        }
         $responseStatus = Arr::get($responseData, 'XAVResponse.Response.ResponseStatus.Code');
         if ($responseStatus !== '1') {
             return new AddressValidationResponseDTO(

@@ -197,9 +197,33 @@ class UpsAddressValidationResponseProviderFeatureTest extends TestCase
                 ],
             ],
         ];
-        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData, 500);
+        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData, 200);
         $this->assertSame(false, $actualDTO->matched);
         $this->assertSame(json_encode('Some error details'), $actualDTO->errorSummary);
+        $this->assertSame(true, $actualDTO->hasErrors());
+        $this->assertSame(ShippingAddressClassificationTypeEnum::UNKNOWN, $actualDTO->addressType);
+        $this->assertSame(0, count($actualDTO->addressCandidates));
+    }
+    public function testResponseHasErrorsStatusCode(): void
+    {
+        $responseData = [
+            'response'=>[
+                'errors'=>[
+                    'Alert'=>'Some error details',
+                    'ResponseStatus'=>[
+                        'Code'=>'0',
+                    ]
+                ],
+            ],
+        ];
+        $actualDTO = \App\ShipShopperLibrary\Providers\Responses\AddressValidation\UpsAddressValidationResponseProvider::getResponseDTO($responseData, 500);
+        $this->assertSame(false, $actualDTO->matched);
+        $this->assertSame(json_encode([
+            'Alert'=>'Some error details',
+            'ResponseStatus'=>[
+                'Code'=>'0',
+            ]
+        ]), $actualDTO->errorSummary);
         $this->assertSame(true, $actualDTO->hasErrors());
         $this->assertSame(ShippingAddressClassificationTypeEnum::UNKNOWN, $actualDTO->addressType);
         $this->assertSame(0, count($actualDTO->addressCandidates));

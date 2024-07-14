@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ShipShopperLibrary\DTOs\ShippingAddressDto;
+use App\ShipShopperLibrary\Exceptions\FedexAuthTokenException;
+use App\ShipShopperLibrary\Exceptions\UpsAuthTokenException;
 use App\ShipShopperLibrary\Managers\AddressValidationManager;
 use App\Support\GetFedexAccessToken;
 use App\Support\GetUpsAccessToken;
@@ -38,7 +40,7 @@ class DemoController extends Controller
                 ],
                 'zip'=>[
                     'required',
-                    // only allow 5 digit standard zips for start of demo so we can demonstrate
+                    // only allow 5 digit zip codes for start of demo so that we can demonstrate
                     // some form validation
                     'regex:/^\d{5}$/',
                 ],
@@ -54,23 +56,62 @@ class DemoController extends Controller
                 'country.*'=>'Please select a valid country',
             ],
         );
-        // testing validation
-        return response('we passed', 200);
-        // Use CA address since that's the only one that works in UPS testing env.
-        $exampleAddress = new ShippingAddressDto(
-            '1315 10th St',
-            'Sacramento',
-            \App\ShipShopperLibrary\Enums\UsaStatesEnum::CA,
-            '95814',
-            \App\ShipShopperLibrary\Enums\RegionsEnum::US,
+        $address = new ShippingAddressDto(
+            $request->input('address'),
+            $request->input('city'),
+            \App\ShipShopperLibrary\Enums\UsaStatesEnum::{$request->input('state')},
+            $request->input('zip'),
+            \App\ShipShopperLibrary\Enums\RegionsEnum::{$request->input('country')},
         );
-        $addressValidationManager->loadAddress($exampleAddress);
-        $addressValidationManager->checkUps($getUpsAccessToken->getToken());
-        $addressValidationManager->checkFedex($getFedexAccessToken->getToken());
+        $addressValidationManager->loadAddress($address);
+        $useUps = $request->boolean('useUps');
+        if ($useUps) {
+            try {
+                $addressValidationManager->checkUps($getUpsAccessToken->getToken());
+            } catch (UpsAuthTokenException $e) {
+                return response()->json(['error'=>'Unable to fetch UPS Auth Token']);
+            }
+        }
+        $useFedex = $request->boolean('useFedex');
+        if ($useFedex) {
+            try {
+                $addressValidationManager->checkFedex($getFedexAccessToken->getToken());
+            } catch (FedexAuthTokenException $e) {
+                return response()->json(['error'=>'Unable to fetch Fedex Auth Token']);
+            }
+        }
         $addressValidationManager->validate();
-        dd(
-            $addressValidationManager->getUpsResponse(),
-            $addressValidationManager->getFedexResponse(),
-        );
+        $response = [];
+        $upsResponse = $addressValidationManager->getUpsResponse();
+        if ($useUps && $upsResponse && $upsResponse->hasErrors()) {
+            $response['ups'] = [
+                'matched'=>$upsResponse?->matched === true,
+                'type'=>$upsResponse?->addressType,
+                'candidateCount'=>0,
+                'error'=>$upsResponse->errorSummary,
+            ];
+        } elseif ($useUps && $upsResponse) {
+            $response['ups'] = [
+                'matched'=>$upsResponse?->matched === true,
+                'type'=>$upsResponse?->addressType,
+                'candidateCount'=>count($upsResponse?->addressCandidates),
+            ];
+        }
+        $fedexResponse = $addressValidationManager->getFedexResponse();
+        if ($useFedex && $fedexResponse && $fedexResponse->hasErrors()) {
+            $response['fedex'] = [
+                'matched'=>$fedexResponse?->matched === true,
+                'type'=>$fedexResponse?->addressType,
+                'candidateCount'=>0,
+                'error'=>$fedexResponse->errorSummary,
+            ];
+        } elseif ($useFedex && $fedexResponse) {
+            $response['fedex'] = [
+                'matched'=>$fedexResponse->matched === true,
+                'type'=>$fedexResponse->addressType,
+                'candidateCount'=>count($fedexResponse?->addressCandidates),
+            ];
+        }
+        return response()->json($response);
     }
 }

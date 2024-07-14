@@ -24,6 +24,11 @@ import * as _ from 'lodash-es';
     const stateError = ref(null)
     const generalErrors = ref('')
     const formIsSubmitting = ref(false)
+    const hasResults = ref(false)
+    const upsMatched = ref(false)
+    const fedexMatched = ref(false)
+    const upsType = ref('')
+    const fedexType = ref('')
     // for now, we will rely on html validation for most
     // fields and that state will always have an option selected
     // since there is no empty choice. demonstrate some form validation on
@@ -46,8 +51,16 @@ import * as _ from 'lodash-es';
         stateError.value = null;
         zipError.value = null;
     }
+    function resetResults() {
+        hasResults.value = false;
+        upsType.value = null;
+        upsMatched.value = false;
+        fedexType.value = null;
+        fedexMatched.value = false;
+    }
     function submitForm() {
         resetFieldErrors();
+        resetResults()
         generalErrors.value = '';
         formIsSubmitting.value = true;
         if (useUps.value === false && useFedex.value === false) {
@@ -65,8 +78,25 @@ import * as _ from 'lodash-es';
             useFedex: useFedex.value,
         })
             .then(function (response) {
-                console.log('response')
-                console.log(response)
+                if (useFedex.value) {
+                    fedexMatched.value = _.get(response, 'data.fedex.matched')
+                    fedexType.value = _.get(response, 'data.fedex.type')
+                    hasResults.value = true
+                    const fedexError = _.get(response, 'data.fedex.error')
+                    if (!_.isEmpty(fedexError)) {
+                        generalErrors.value = `${generalErrors.value} ${fedexError}`
+                    }
+                }
+                if (useUps.value) {
+                    upsMatched.value = _.get(response, 'data.ups.matched')
+                    upsType.value = _.get(response, 'data.ups.type')
+                    hasResults.value = true
+                    const upsError = _.get(response, 'data.ups.error')
+                    if (!_.isEmpty(upsError)) {
+                        generalErrors.value = `${generalErrors.value} ${upsError}`
+                    }
+                }
+                formIsSubmitting.value = false;
             })
             .catch(function (error) {
                 if (error.response.status === 422) {
@@ -95,7 +125,6 @@ import * as _ from 'lodash-es';
 
 <template>
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
         <div class="mx-auto max-w-3xl my-10">
             <form @submit.prevent="submitForm">
                 <div class="space-y-12">
@@ -236,6 +265,27 @@ import * as _ from 'lodash-es';
                     </button>
                 </div>
             </form>
+
+            <p v-if="hasResults && useUps" class="my-12 text-md leading-6 text-gray-800">
+                UPS Results:
+                    <span v-if="upsMatched">
+                        Address matched.
+                    </span>
+                    <span v-else>
+                        Address not matched.
+                    </span>
+                    Type: {{ upsType }}
+            </p>
+            <p v-if="hasResults && useFedex" class="my-12 text-md leading-6 text-gray-800">
+                Fedex Results:
+                    <template v-if="fedexMatched">
+                        Address matched.
+                    </template>
+                    <template v-else>
+                        Address not matched.
+                    </template>
+                    Type: {{ fedexType }}
+            </p>
         </div>
     </div>
 </template>
